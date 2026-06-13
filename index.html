@@ -16,8 +16,11 @@
       --abyss: #03101b;       /* near-black blue background      */
       --deep:  #07223a;       /* deep ocean blue                 */
       --blue:  #0e4b78;       /* mid blue                        */
-      --orange:#e06c2d;       /* the "orange in the blue" accent */
-      --orange-soft:#f2a463;
+      /* ── Ginger accent: ONE source of truth (edit only these two lines) ── */
+      --accent-rgb: 224 108 45;        /* ginger / copper            */
+      --accent-soft-rgb: 242 164 99;   /* lighter ginger highlight   */
+      --orange: rgb(var(--accent-rgb));
+      --orange-soft: rgb(var(--accent-soft-rgb));
       --ink:   #eaf3fa;       /* primary text                    */
       --muted: #93acc0;       /* secondary text                  */
       --line:  rgba(147,172,192,.18);
@@ -94,7 +97,7 @@
     .hero-media {
       position: absolute; inset: 0; z-index: 0;
       background:
-        radial-gradient(120% 80% at 70% 12%, rgba(224,108,45,.22), transparent 42%),
+        radial-gradient(120% 80% at 70% 12%, rgb(var(--accent-rgb) / .22), transparent 42%),
         radial-gradient(120% 120% at 20% 0%, var(--blue), transparent 55%),
         linear-gradient(180deg, #0a3151 0%, var(--deep) 42%, var(--abyss) 100%);
     }
@@ -103,7 +106,7 @@
       content: ""; position: absolute; inset: -20%;
       background:
         radial-gradient(60% 40% at 30% -10%, rgba(180,225,255,.18), transparent 60%),
-        radial-gradient(40% 30% at 75% -5%, rgba(242,164,99,.14), transparent 60%);
+        radial-gradient(40% 30% at 75% -5%, rgb(var(--accent-soft-rgb) / .14), transparent 60%);
       filter: blur(8px);
       animation: drift 16s ease-in-out infinite alternate;
     }
@@ -158,10 +161,10 @@
     .tile .ph { position: absolute; inset: 0; }
     .tile:nth-child(1) .ph { background: linear-gradient(150deg,#0a3a5e,#072033 70%); }
     .tile:nth-child(2) .ph { background: linear-gradient(150deg,#13577f,#0a2c47 70%); }
-    .tile:nth-child(3) .ph { background: radial-gradient(120% 90% at 30% 10%, rgba(224,108,45,.35), transparent 50%), linear-gradient(150deg,#0d4163,#061d30 70%); }
+    .tile:nth-child(3) .ph { background: radial-gradient(120% 90% at 30% 10%, rgb(var(--accent-rgb) / .35), transparent 50%), linear-gradient(150deg,#0d4163,#061d30 70%); }
     .tile:nth-child(4) .ph { background: linear-gradient(150deg,#0f4a70,#082539 70%); }
     .tile:nth-child(5) .ph { background: linear-gradient(150deg,#114e76,#08293f 70%); }
-    .tile:nth-child(6) .ph { background: radial-gradient(120% 90% at 70% 20%, rgba(242,164,99,.3), transparent 50%), linear-gradient(150deg,#0b3a5c,#06202f 70%); }
+    .tile:nth-child(6) .ph { background: radial-gradient(120% 90% at 70% 20%, rgb(var(--accent-soft-rgb) / .3), transparent 50%), linear-gradient(150deg,#0b3a5c,#06202f 70%); }
     .tile:nth-child(7) .ph { background: linear-gradient(150deg,#0e4368,#071f31 70%); }
     .tile:nth-child(8) .ph { background: linear-gradient(150deg,#125580,#0a2a44 70%); }
     .tile.wide { grid-column: span 2; }
@@ -183,7 +186,7 @@
       position: relative; border-radius: 8px; overflow: hidden; margin-top: 2rem;
       aspect-ratio: 21 / 9;
       background:
-        radial-gradient(80% 120% at 50% 0%, rgba(224,108,45,.18), transparent 55%),
+        radial-gradient(80% 120% at 50% 0%, rgb(var(--accent-rgb) / .18), transparent 55%),
         linear-gradient(160deg, #0c456b, #04141f);
       display: flex; align-items: center; justify-content: center;
       box-shadow: inset 0 0 0 1px var(--line);
@@ -193,7 +196,7 @@
       border: 1px solid var(--orange); display: grid; place-items: center;
       transition: transform .25s ease, background .25s ease;
     }
-    .play:hover { transform: scale(1.06); background: rgba(224,108,45,.12); }
+    .play:hover { transform: scale(1.06); background: rgb(var(--accent-rgb) / .12); }
     .play::after { content:""; width:0; height:0; margin-left:5px;
       border-left: 18px solid var(--orange); border-top: 11px solid transparent; border-bottom: 11px solid transparent; }
     .film-stage .label { position: absolute; bottom: 1.2rem; left: 1.4rem; font-size:.74rem; letter-spacing:.16em; text-transform:uppercase; color: var(--muted); }
@@ -201,7 +204,7 @@
     /* ---------- ABOUT ---------- */
     .about { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,4.5rem); align-items: center; }
     .portrait { aspect-ratio: 4/5; border-radius: 6px; background:
-      radial-gradient(90% 70% at 30% 20%, rgba(242,164,99,.25), transparent 55%),
+      radial-gradient(90% 70% at 30% 20%, rgb(var(--accent-soft-rgb) / .25), transparent 55%),
       linear-gradient(160deg, #0e4870, #061d2f);
       box-shadow: inset 0 0 0 1px var(--line); position: relative; }
     .portrait span { position:absolute; inset:0; display:grid; place-items:center; color:var(--muted); font-size:.74rem; letter-spacing:.18em; text-transform:uppercase; }
@@ -215,7 +218,7 @@
     .shop-card { width: 200px; }
     .shop-card .thumb { aspect-ratio: 1; border-radius: 6px; box-shadow: inset 0 0 0 1px var(--line); }
     .shop-card:nth-child(1) .thumb { background: linear-gradient(150deg,#0f4870,#06202f); }
-    .shop-card:nth-child(2) .thumb { background: radial-gradient(100% 90% at 40% 20%, rgba(224,108,45,.3), transparent 55%), linear-gradient(150deg,#0c3f63,#05192a); }
+    .shop-card:nth-child(2) .thumb { background: radial-gradient(100% 90% at 40% 20%, rgb(var(--accent-rgb) / .3), transparent 55%), linear-gradient(150deg,#0c3f63,#05192a); }
     .shop-card:nth-child(3) .thumb { background: linear-gradient(150deg,#125580,#082942); }
     .shop-card p { margin-top:.7rem; font-size:.8rem; letter-spacing:.1em; text-transform:uppercase; color: var(--muted); }
 
