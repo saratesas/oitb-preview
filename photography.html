@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Photography — Orange in the Blue · James Allen</title>
+  <meta name="description" content="Underwater and over-water wildlife photography by James Allen — explore the work on a world map of where each shot was taken, or browse by animal." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Leaflet (dark world map) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  <link rel="stylesheet" href="assets/site.css" />
+  <link rel="stylesheet" href="assets/gallery.css" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <header id="site-header">
+    <button class="nav-toggle" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav class="links">
+      <a href="photography.html" aria-current="page">Photography</a>
+      <a href="video.html">Video</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#shop">Shop</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <a class="wordmark" href="index.html"><b>Orange</b> in the Blue</a>
+  </header>
+
+  <main>
+    <section class="page-intro">
+      <p class="eyebrow">Photography</p>
+      <h1>Above &amp; beneath <em>the surface</em></h1>
+      <p class="lead">Every frame, pinned to the place it was taken. Explore the map to dive where James has been — or browse the work by animal.</p>
+
+      <div class="toggle" role="group" aria-label="Choose a view">
+        <button id="btn-map" aria-pressed="true"><span class="ico">🗺</span> Map</button>
+        <button id="btn-animals" aria-pressed="false"><span class="ico">🐾</span> Animals</button>
+      </div>
+
+      <div id="gallery-app" data-src="data/photos.json" data-kind="photo">
+        <div id="map-view" class="view">
+          <p class="view-hint">Tap a <b>ginger pin</b> to see the shot and where it was taken.</p>
+          <div id="map"></div>
+        </div>
+        <div id="animal-view" class="view">
+          <div id="animal-groups"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <div class="foot-row">
+      <div>
+        <p class="eyebrow">Get in touch</p>
+        <h2 class="section-title" style="margin-bottom:.4rem;">Let's make something</h2>
+        <a class="btn btn-ghost" href="mailto:hello@orangeintheblue.co.uk">hello@orangeintheblue.co.uk</a>
+      </div>
+      <a class="ig" href="#" rel="noopener">Instagram ↗</a>
+    </div>
+    <p class="copy">© <span id="yr">2026</span> Orange in the Blue · James Allen. All photographs &amp; films © the artist.</p>
+  </footer>
+
+  <!-- lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true"><div class="lb-card"></div></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    var header = document.getElementById('site-header');
+    var onScroll = function () { header.classList.toggle('scrolled', window.scrollY > 40); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive: true });
+    var navToggle = document.querySelector('.nav-toggle');
+    if (navToggle) {
+      navToggle.addEventListener('click', function () {
+        var open = header.classList.toggle('nav-open');
+        navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        navToggle.textContent = open ? '✕' : '☰';
+      });
+      document.querySelectorAll('nav.links a').forEach(function (a) {
+        a.addEventListener('click', function () { header.classList.remove('nav-open'); navToggle.setAttribute('aria-expanded','false'); navToggle.textContent='☰'; });
+      });
+    }
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  </script>
+  <script src="assets/gallery.js"></script>
+</body>
+</html>

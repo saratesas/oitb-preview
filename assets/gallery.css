@@ -1,0 +1,88 @@
+/* ============================================================
+   Orange in the Blue — Map ⇄ Animals gallery (Photography + Video)
+   ============================================================ */
+
+/* page intro */
+.page-intro { padding-top: clamp(8rem, 14vw, 11rem); padding-bottom: clamp(2rem, 5vw, 3rem); }
+.page-intro h1 { font-family: var(--display); font-weight: 300; font-size: clamp(2.4rem, 7vw, 5rem); line-height: 1; letter-spacing: -.015em; margin: .5rem 0 1rem; }
+.page-intro h1 em { font-style: italic; color: var(--orange-soft); }
+
+/* ---------- view toggle ---------- */
+.toggle { display: inline-flex; padding: .35rem; gap: .25rem; border: 1px solid var(--line); border-radius: 999px; background: rgba(3,16,27,.45); backdrop-filter: blur(6px); margin: 1.6rem 0 2.4rem; }
+.toggle button { background: none; border: 0; cursor: pointer; color: var(--muted); font-family: var(--sans); font-size: .76rem; letter-spacing: .14em; text-transform: uppercase; padding: .65rem 1.2rem; border-radius: 999px; display: inline-flex; align-items: center; gap: .5rem; transition: color .25s ease, background .25s ease; }
+.toggle button:hover { color: var(--ink); }
+.toggle button[aria-pressed="true"] { color: #1a0c00; background: linear-gradient(180deg, rgb(var(--accent-soft-rgb)), rgb(var(--accent-rgb))); font-weight: 500; }
+.toggle .ico { font-size: 1rem; line-height: 1; }
+
+.view { display: none; }
+.view.active { display: block; animation: fade .5s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .view.active { animation: none; } }
+
+.view-hint { color: var(--muted); font-size: .85rem; margin-bottom: 1rem; }
+.view-hint b { color: var(--orange-soft); font-weight: 500; }
+
+/* ---------- map ---------- */
+#map { height: clamp(420px, 68vh, 760px); width: 100%; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--line), 0 30px 60px -30px rgba(0,0,0,.7); background: var(--zone-mid); z-index: 1; }
+.leaflet-container { background: #04121e; font-family: var(--sans); }
+.leaflet-control-attribution { background: rgba(3,16,27,.7) !important; color: var(--muted) !important; }
+.leaflet-control-attribution a { color: var(--orange-soft) !important; }
+.leaflet-bar a { background: rgba(3,16,27,.9); color: var(--ink); border-color: var(--line); }
+.leaflet-bar a:hover { background: rgba(14,75,120,.9); }
+
+/* ginger pin */
+.pin { position: relative; width: 16px; height: 16px; }
+.pin span { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 35% 30%, rgb(var(--accent-soft-rgb)), rgb(var(--accent-rgb))); box-shadow: 0 0 0 4px rgb(var(--accent-rgb) / .22), 0 0 14px 2px rgb(var(--accent-rgb) / .55); }
+.pin::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 1px solid rgb(var(--accent-rgb) / .5); animation: ping 2.4s ease-out infinite; }
+@keyframes ping { 0% { transform: scale(.7); opacity: .8; } 100% { transform: scale(2.1); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .pin::after { animation: none; } }
+
+/* popups (dark themed) */
+.leaflet-popup-content-wrapper { background: rgba(5,23,38,.96); color: var(--ink); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 20px 50px -20px rgba(0,0,0,.8); }
+.leaflet-popup-tip { background: rgba(5,23,38,.96); border: 1px solid var(--line); }
+.leaflet-popup-content { margin: 0; width: 240px !important; }
+.leaflet-popup-close-button { color: var(--muted) !important; }
+.pop-thumb { aspect-ratio: 16/10; border-radius: 9px 9px 0 0; position: relative; box-shadow: inset 0 0 0 1px var(--line); }
+.pop-body { padding: .85rem 1rem 1rem; }
+.pop-animal { font-size: .66rem; letter-spacing: .16em; text-transform: uppercase; color: var(--orange-soft); }
+.pop-title { font-family: var(--display); font-size: 1.15rem; line-height: 1.1; margin: .15rem 0 .35rem; }
+.pop-place { font-size: .8rem; color: var(--muted); }
+.pop-tag { display: inline-block; margin-top: .55rem; font-size: .6rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: .2rem .55rem; }
+.pop-play { position: absolute; inset: 0; display: grid; place-items: center; }
+.pop-play::after { content:""; width:0; height:0; margin-left:4px; border-left: 16px solid rgb(var(--accent-soft-rgb)); border-top: 10px solid transparent; border-bottom: 10px solid transparent; filter: drop-shadow(0 0 8px rgb(var(--accent-rgb) / .6)); }
+
+/* ---------- animals view ---------- */
+.animal-group { margin-bottom: 3rem; }
+.animal-group h2 { font-family: var(--display); font-weight: 300; font-size: clamp(1.4rem, 3.4vw, 2.1rem); display: flex; align-items: baseline; gap: .7rem; margin-bottom: 1.1rem; }
+.animal-group h2 .count { font-family: var(--sans); font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.card-grid { display: grid; gap: .85rem; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.card { position: relative; overflow: hidden; border-radius: 8px; cursor: pointer; box-shadow: inset 0 0 0 1px var(--line); transition: transform .25s ease; }
+.card:hover { transform: translateY(-4px); }
+.card .thumb { aspect-ratio: 4/3; position: relative; }
+.card .meta { position: absolute; left: 0; right: 0; bottom: 0; padding: 1rem .9rem .8rem; background: linear-gradient(transparent, rgba(3,16,27,.92)); }
+.card .meta .t { font-family: var(--display); font-size: 1.05rem; line-height: 1.1; }
+.card .meta .p { font-size: .74rem; color: var(--muted); margin-top: .15rem; }
+.card .side { position: absolute; top: .7rem; left: .7rem; font-size: .58rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ink); background: rgba(3,16,27,.6); border: 1px solid var(--line); border-radius: 999px; padding: .2rem .5rem; backdrop-filter: blur(4px); }
+.card .play-badge { position:absolute; inset:0; display:grid; place-items:center; }
+.card .play-badge::after { content:""; width:0; height:0; margin-left:4px; border-left: 18px solid var(--ink); border-top: 11px solid transparent; border-bottom: 11px solid transparent; opacity:.92; }
+.card .dur { position:absolute; top:.7rem; right:.7rem; font-size:.62rem; letter-spacing:.08em; color: var(--ink); background: rgba(3,16,27,.6); border-radius: 999px; padding:.15rem .5rem; }
+
+/* gradient placeholder swatches (cycled until James's media is dropped in) */
+.sw0 { background: linear-gradient(150deg,#0a3a5e,#072033 70%); }
+.sw1 { background: linear-gradient(150deg,#13577f,#0a2c47 70%); }
+.sw2 { background: radial-gradient(120% 90% at 30% 10%, rgb(var(--accent-rgb) / .35), transparent 50%), linear-gradient(150deg,#0d4163,#061d30 70%); }
+.sw3 { background: linear-gradient(150deg,#0f4a70,#082539 70%); }
+.sw4 { background: linear-gradient(150deg,#114e76,#08293f 70%); }
+.sw5 { background: radial-gradient(120% 90% at 70% 20%, rgb(var(--accent-soft-rgb) / .3), transparent 50%), linear-gradient(150deg,#0b3a5c,#06202f 70%); }
+
+/* ---------- lightbox ---------- */
+.lightbox { position: fixed; inset: 0; z-index: 2000; display: none; place-items: center; padding: 5vw; background: rgba(2,9,15,.86); backdrop-filter: blur(8px); }
+.lightbox.open { display: grid; }
+.lb-card { max-width: 640px; width: 100%; background: rgba(5,23,38,.96); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; box-shadow: 0 40px 80px -30px #000; }
+.lb-thumb { aspect-ratio: 16/10; position: relative; }
+.lb-body { padding: 1.3rem 1.5rem 1.6rem; }
+.lb-animal { font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color: var(--orange-soft); }
+.lb-title { font-family: var(--display); font-size: 1.7rem; line-height: 1.05; margin:.2rem 0 .4rem; }
+.lb-place { color: var(--muted); font-size: .9rem; }
+.lb-cap { color: var(--muted); margin-top: .9rem; font-size: .95rem; }
+.lb-close { position: absolute; top: 1rem; right: 1.1rem; z-index: 3; background: rgba(3,16,27,.6); border: 1px solid var(--line); color: var(--ink); width: 38px; height: 38px; border-radius: 50%; font-size: 1.1rem; cursor: pointer; }
